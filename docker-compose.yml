@@ -10,6 +10,8 @@ services:
       - "8080:8080"
     volumes:
       - .:/app
+    env_file:
+      - .env
     environment:
       ENV: development
     working_dir: /app
@@ -26,6 +28,19 @@ services:
       - "${DB_PORT}:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
+  migration:
+    image: migrate/migrate
+    env_file:
+      - .env
+    volumes:
+      - ./migrations:/migrations
+    command: [
+      "-path", "/migrations",
+      "-database", "${DATABASE_URL}",
+      "up" 
+    ]
+    depends_on:
+      - db
 
 volumes:
   db_data:
