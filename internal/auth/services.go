@@ -25,7 +25,7 @@ func (s *authService) RegisterService(input RegisterRequestDTO) (*users.User, er
 	// check if email already exists
 	existing, _ := s.repo.FindByEmail(input.Email)
 	if existing.ID != uuid.Nil {
-		return nil, errors.New("Email already in use")
+		return nil, errors.New("email already in use")
 	}
 
 	//hash password
