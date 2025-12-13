@@ -5,11 +5,19 @@ import (
 	"github.com/lukiriskigumilar/resepify-be/internal/auth"
 	"github.com/lukiriskigumilar/resepify-be/internal/users"
 
+	"github.com/joho/godotenv"
 	"github.com/lukiriskigumilar/resepify-be/internal/config"
 	"github.com/lukiriskigumilar/resepify-be/internal/routes"
 )
 
 func main() {
+	//load env
+	err := godotenv.Load()
+	if err != nil {
+		panic("Failed to load .env file")
+	}
+
+	//init db
 	config.ConnectDatabase()
 	db := config.DB
 
