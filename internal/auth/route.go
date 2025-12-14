@@ -6,4 +6,5 @@ func AuthRoutes(ar *gin.RouterGroup, m *AuthModule) {
 	auth := ar.Group("/auth")
 
 	auth.POST("/register", m.Handler.RegisterUser)
+	auth.POST("/login", m.Handler.LoginHandler)
 }
