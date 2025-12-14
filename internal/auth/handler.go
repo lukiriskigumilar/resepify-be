@@ -42,3 +42,26 @@ func (h *AuthHandler) RegisterUser(c *gin.Context) {
 
 	utils.NewApiResponseSuccess(c, "User registered successfully", responseData, 201)
 }
+
+func (h *AuthHandler) LoginHandler(c *gin.Context) {
+	var req LoginRequestDTO
+
+	//validate request body
+	if err := c.ShouldBindJSON(&req); err != nil {
+		utils.NewApiResponseError(c, "Invalid request", 400, gin.H{
+			"reason": err.Error(),
+		})
+		return
+	}
+
+	// call service login
+	user, err := h.service.LoginService(req)
+	if err != nil {
+		utils.NewApiResponseError(
+			c, "Login failed", 401, gin.H{
+				"reason": err.Error(),
+			})
+		return
+	}
+	utils.NewApiResponseSuccess(c, "Login successful", user, 200)
+}
