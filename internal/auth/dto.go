@@ -15,3 +15,15 @@ type RegisterResponseDTO struct {
 	Email     string    `json:"email"`
 	CreatedAt time.Time `json:"created_at"`
 }
+
+type LoginRequestDTO struct {
+	Email    string `json:"email" binding:"required,email"`
+	Password string `json:"password" binding:"required"`
+}
+
+type LoginResponseDTO struct {
+	Name        string    `json:"name"`
+	Email       string    `json:"email"`
+	Token       string    `json:"token"`
+	TokenExpiry time.Time `json:"token_expiry"`
+}
